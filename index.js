@@ -1,7 +1,8 @@
 const inquirer = require('inquirer');
 const connection = require('./connection');
 
-inquirer
+const start = () => {
+    inquirer
       .prompt({
         name: 'action',
         type: 'list',
@@ -48,3 +49,4 @@ inquirer
             start();
         }
       });
+    }
