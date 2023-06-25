@@ -1,11 +1,23 @@
 const inquirer = require('inquirer');
 const connection = require('./connection');
+const express = require('express');
+const mysql = require('mysql2');
 
-const start = () => {
+app = express();
+
+const connection = mysql.createConnection({
+  host: 'localhost',
+  port: 3306,
+  user: 'root',
+  password: '',
+  database: 'schema.sql',
+});
+
+function displayMenu() {
     inquirer
       .prompt({
-        name: 'action',
         type: 'list',
+        name: 'menu',
         message: 'What would you like to do?',
         choices: [
           'View all departments',
@@ -46,7 +58,27 @@ const start = () => {
             break;
           default:
             console.log('Invalid choice. Please select a valid option.');
-            start();
         }
       });
     }
+    function viewDepartments() {
+      connection.query('SELECT * FROM departments', (err, results) => {
+        if (err) throw err;
+        console.table(results);
+        displayMainMenu();
+      });
+    }
+
+    function viewRoles() {
+      const query = `
+        SELECT roles.title, roles.id, departments.name AS department, roles.salary
+        FROM roles
+        INNER JOIN departments ON roles.department_id = departments.id
+      `;
+      connection.query(query, (err, results) => {
+        if (err) throw err;
+        console.table(results);
+        displayMainMenu();
+      });
+    }
+
