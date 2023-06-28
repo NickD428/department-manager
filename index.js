@@ -197,3 +197,29 @@ function addEmployee() {
     });
 }
 
+function updateEmployeeRole() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'employeeId',
+        message: 'Enter the ID of the employee to update:',
+      },
+      {
+        type: 'input',
+        name: 'roleId',
+        message: 'Enter the new role ID for the employee:',
+      },
+    ])
+    .then((answers) => {
+      const query = 'UPDATE employees SET employee_title = ? WHERE employee_id = ?';
+      connection.query(query, [answers.roleId, answers.employeeId], (err) => {
+        if (err) throw err;
+
+        console.log('Employee role updated successfully.');
+        mainMenu();
+      });
+    });
+}
+
+mainMenu();
