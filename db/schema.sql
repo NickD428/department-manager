@@ -19,7 +19,6 @@ CREATE TABLE employees (
     employee_last_name VARCHAR(20) NOT NULL,
     employee_title VARCHAR(20) NOT NULL,
     department_id INT NOT NULL,
-    salary INT NOT NULL,
     manager_name VARCHAR(20) NOT NULL
 );
 
@@ -27,5 +26,6 @@ DROP TABLE IF EXISTS roles;
 
 CREATE TABLE roles (
     role_id INT NOT NULL,
-    role_name VARCHAR(20) NOT NULL
+    role_name VARCHAR(20) NOT NULL,
+    salary INT NOT NULL
 );
