@@ -6,18 +6,23 @@ const connection = mysql.createConnection({
   port: 3306,
   user: 'root',
   password: '',
-  database: 'department_manager_db',
+  database: 'department_manager',
 });
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to the database.');
-  mainMenu();
-});
 
-function mainMenu() {
-  inquirer
-    .prompt([
+function promptUser(questions) {
+  return new Promise((resolve, reject) => {
+    inquirer.prompt(questions).then((answers) => {
+      resolve(answers);
+    }).catch((error) => {
+      reject(error);
+    });
+  });
+}
+
+async function mainMenu() {
+  try {
+    const answers = await promptUser([
       {
         type: 'list',
         name: 'action',
@@ -32,36 +37,38 @@ function mainMenu() {
           'Update an employee role',
         ],
       },
-    ])
-    .then((answers) => {
-      switch (answers.action) {
-        case 'View all departments':
-          viewAllDepartments();
-          break;
-        case 'View all roles':
-          viewAllRoles();
-          break;
-        case 'View all employees':
-          viewAllEmployees();
-          break;
-        case 'Add a department':
-          addDepartment();
-          break;
-        case 'Add a role':
-          addRole();
-          break;
-        case 'Add an employee':
-          addEmployee();
-          break;
-        case 'Update an employee role':
-          updateEmployeeRole();
-          break;
-        default:
-          console.log('Invalid choice.');
-          mainMenu();
-          break;
-      }
-    });
+    ]);
+
+    switch (answers.action) {
+      case 'View all departments':
+        viewAllDepartments();
+        break;
+      case 'View all roles':
+        viewAllRoles();
+        break;
+      case 'View all employees':
+        viewAllEmployees();
+        break;
+      case 'Add a department':
+        addDepartment();
+        break;
+      case 'Add a role':
+        addRole();
+        break;
+      case 'Add an employee':
+        addEmployee();
+        break;
+      case 'Update an employee role':
+        updateEmployeeRole();
+        break;
+      default:
+        console.log('Invalid choice.');
+        mainMenu();
+        break;
+    }
+  } catch (error) {
+    console.error('Error:', error);
+  }
 }
 
 function viewAllDepartments() {
@@ -222,4 +229,8 @@ function updateEmployeeRole() {
     });
 }
 
-mainMenu();
+connection.connect((err) => {
+  if (err) throw err;
+  console.log('Connected to the database.');
+  mainMenu();
+});
