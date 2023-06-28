@@ -63,3 +63,14 @@ function mainMenu() {
       }
     });
 }
+
+function viewAllDepartments() {
+  const query = 'SELECT department_id, department_name FROM departments';
+  connection.query(query, (err, res) => {
+    if (err) throw err;
+
+    console.table(res);
+    mainMenu();
+  });
+}
+
