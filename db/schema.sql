@@ -29,5 +29,6 @@ CREATE TABLE roles (
     role_id INT AUTO_INCREMENT PRIMARY KEY,
     role_name VARCHAR(20) NOT NULL,
     salary INT NOT NULL,
+    department_id INT,
     FOREIGN KEY (department_id) REFERENCES departments(department_id)
 );
