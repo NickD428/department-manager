@@ -151,3 +151,49 @@ function addRole() {
     });
 }
 
+function addEmployee() {
+  inquirer
+    .prompt([
+      {
+        type: 'input',
+        name: 'firstName',
+        message: "Enter the employee's first name:",
+      },
+      {
+        type: 'input',
+        name: 'lastName',
+        message: "Enter the employee's last name:",
+      },
+      {
+        type: 'input',
+        name: 'title',
+        message: "Enter the employee's title:",
+      },
+      {
+        type: 'input',
+        name: 'departmentId',
+        message: "Enter the department ID for the employee:",
+      },
+      {
+        type: 'input',
+        name: 'managerName',
+        message: "Enter the employee's manager's name:",
+      },
+    ])
+    .then((answers) => {
+      const query =
+        'INSERT INTO employees (employee_id, employee_first_name, employee_last_name, ' +
+        'employee_title, department_id, manager_name) VALUES (DEFAULT, ?, ?, ?, ?, ?)';
+      connection.query(
+        query,
+        [answers.firstName, answers.lastName, answers.title, answers.departmentId, answers.managerName],
+        (err) => {
+          if (err) throw err;
+
+          console.log('Employee added successfully.');
+          mainMenu();
+        }
+      );
+    });
+}
+
