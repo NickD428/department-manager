@@ -141,11 +141,7 @@ function addRole() {
         name: 'salary',
         message: 'Enter the salary for the role:',
       },
-      {
-        type: 'input',
-        name: 'departmentId',
-        message: 'Enter the department ID for the role:',
-      },
+
     ])
     .then((answers) => {
       const query = 'INSERT INTO roles (role_id, role_name, salary, department_id) VALUES (DEFAULT, ?, ?, ?)';
@@ -215,7 +211,7 @@ function updateEmployeeRole() {
       {
         type: 'input',
         name: 'roleId',
-        message: 'Enter the new role ID for the employee:',
+        message: 'Enter the new role name for the employee:',
       },
     ])
     .then((answers) => {
