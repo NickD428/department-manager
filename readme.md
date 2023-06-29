@@ -33,3 +33,8 @@
   Project created by NickD428 with the help of google, youtube and ChatGPT!
   Check out my other works here! https://github.com/NickD428
   Questions? Contact me here: chargerfan428@aol.com
+
+
+![department-manager](https://github.com/NickD428/department-manager/assets/126355678/9f03c817-2603-47f4-802b-acf3115813ff)
+
+A short video showcasing the program: https://drive.google.com/file/d/1EglR8RmaS6KaRqvfBYVn6K5ngXtbP6Z7/view
